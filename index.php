@@ -10,7 +10,7 @@
     Command output below
     <br>
     <form action="index.php" method="GET">
-        <textarea name="command" style="width:80%; height:20px;"></textarea>
+        <textarea name="command" style="width:75%; height:30px;"></textarea>
         <input type="submit" value="Execute!">
     </form>
     <?php
@@ -37,4 +37,5 @@
 </body>
 
 </html>
+
 
