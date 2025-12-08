@@ -8,17 +8,21 @@
         .history-dropdown {
             position: relative;
             display: inline-block;
+            width: 100%;
         }
         
         .history-dropdown-content {
             display: none;
             position: absolute;
             background-color: #f9f9f9;
-            min-width: 100%;
+            width: 100%;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
             max-height: 300px;
             overflow-y: auto;
+            border: 1px solid #ccc;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
         }
         
         .history-dropdown:hover .history-dropdown-content {
@@ -45,6 +49,12 @@
         
         .history-clear:hover {
             background-color: #ffdddd;
+        }
+        
+        /* Ensure textarea and dropdown have same width */
+        #commandInput {
+            width: 100%;
+            position: relative;
         }
     </style>
 </head>
@@ -76,7 +86,7 @@
                             ><?php echo htmlspecialchars($_GET['command'] ?? ''); ?></textarea>
                             
                             <!-- History Dropdown -->
-                            <div class="history-dropdown-content w3-round">
+                            <div class="history-dropdown-content w3-round-bottom">
                                 <?php
                                 // Get command history from cookie
                                 $history = [];
@@ -244,6 +254,24 @@
     document.addEventListener('keydown', function(e) {
         if (e.ctrlKey && e.key === 'Enter') {
             document.getElementById('commandForm').submit();
+        }
+    });
+    
+    // Ensure dropdown matches textarea width on resize
+    window.addEventListener('resize', function() {
+        var textarea = document.getElementById('commandInput');
+        var dropdown = document.querySelector('.history-dropdown-content');
+        if (textarea && dropdown) {
+            dropdown.style.width = textarea.offsetWidth + 'px';
+        }
+    });
+    
+    // Set initial dropdown width
+    document.addEventListener('DOMContentLoaded', function() {
+        var textarea = document.getElementById('commandInput');
+        var dropdown = document.querySelector('.history-dropdown-content');
+        if (textarea && dropdown) {
+            dropdown.style.width = textarea.offsetWidth + 'px';
         }
     });
 </script>
